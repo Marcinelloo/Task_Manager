@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Card from "../common/components/Card";
 
@@ -42,6 +43,15 @@ const Input = styled.input`
   }
 `;
 
+const Form = styled.form`
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+`;
+
 const Button = styled.button`
   width: 100%;
   height: 30px;
@@ -58,11 +68,12 @@ const Button = styled.button`
 const Login = () => {
   const loginRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
   const passwordRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const navigate = useNavigate();
 
   const handleLogin = (e: any) => {
     e.preventDefault();
 
-    // tu jakies zapytanie do bazy
+    navigate("/dashboard");
 
     passwordRef.current.value = "";
     loginRef.current.value = "";
@@ -73,21 +84,11 @@ const Login = () => {
       <Card>
         <LoginWrapper>
           <Title>Login to TaskManager</Title>
-          <form
-            onSubmit={(e) => handleLogin(e)}
-            style={{
-              width: "400px",
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              gap: "30px",
-              alignItems: "center",
-            }}
-          >
+          <Form onSubmit={(e) => handleLogin(e)}>
             <Input ref={loginRef} placeholder="E-Mail" />
             <Input ref={passwordRef} type="password" placeholder="Password" />
             <Button type="submit">Sign In</Button>
-          </form>
+          </Form>
         </LoginWrapper>
       </Card>
     </Wrapper>
